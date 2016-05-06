@@ -1,6 +1,6 @@
-import {Injectable}   from "angular2/core";
-import {Component, Host, Input} from "angular2/core";
-import {NgFormModel} from "angular2/common";
+import {Injectable}   from "@angular/core";
+import {Component, Host, Input} from "@angular/core";
+import {NgFormModel} from "@angular/common";
 
 @Injectable()
 export class FormlyMessages {

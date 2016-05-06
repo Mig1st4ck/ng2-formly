@@ -1,7 +1,7 @@
 /// <reference path="./../typings/ng2-formly.d.ts" />
-import {Component} from "angular2/core";
-import {Validators} from "angular2/common";
-import {bootstrap} from "angular2/platform/browser";
+import {Component} from "@angular/core";
+import {Validators} from "@angular/common";
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {FormlyForm} from "./../src/components/formly.form";
 import {ValidationService} from "./validation.service";
 import {FormlyProviders} from "./../src/services/formly.providers";
@@ -133,7 +133,7 @@ export class HelloApp {
                     },
                     validation: Validators.compose([Validators.required, ValidationService.emailValidator]),
                     expressionProperties: {
-                        "templateOptions.disbled": "!model.password"
+                        "templateOptions.disabled": "!model.password"
                     }
                 }, {
                     className: "col-xs-4",
@@ -247,6 +247,7 @@ export class HelloApp {
       });
   }
 hide() {
+    console.log(this.userFields);
     this.userFields[1].fieldGroup[0].hideExpression = !this.userFields[1].fieldGroup[0].hideExpression;
 }
 

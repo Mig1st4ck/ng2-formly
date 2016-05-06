@@ -32,6 +32,26 @@ async.waterfall([
 });
 
 function getSystemJsBundleConfig(cb) {
+  var packages = {
+    'app':                        { main: 'main.js',  defaultExtension: 'js' },
+    'rxjs':                       { defaultExtension: 'js' },
+  };
+  var packageNames = [
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/core',
+    '@angular/http',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/router',
+    '@angular/router-deprecated',
+    '@angular/testing',
+    '@angular/upgrade',
+  ];
+  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
+  packageNames.forEach(function(pkgName) {
+    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+  });
   const config = {
     baseURL: '..',
     transpiler: 'typescript',
@@ -40,15 +60,16 @@ function getSystemJsBundleConfig(cb) {
     },
     map: {
       typescript: path.resolve('node_modules/typescript/lib/typescript.js'),
-      angular2: path.resolve('node_modules/angular2'),
+      '@angular': path.resolve('node_modules/@angular'),
       rxjs: path.resolve('node_modules/rxjs')
     },
+    packages: packages,
     paths: {
       '*': '*.js'
     }
   };
 
-  config.meta = ['angular2', 'rxjs'].reduce((memo, currentValue) => {
+  config.meta = ['rxjs'].reduce((memo, currentValue) => {
     memo[path.resolve(`node_modules/${currentValue}/*`)] = {build: false};
     return memo;
   }, {});
